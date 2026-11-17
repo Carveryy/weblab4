@@ -15,7 +15,8 @@
 </head>
 <body>
 <h2>Редагувати категорію</h2>
-<form action="categories?action=update" method="post">
+<form action="categories?action=update" method="post"
+      onsubmit="return confirm('Зберегти зміни?');">
     <input type="hidden" name="id" value="<%= cat.getId() %>">
     <label>Назва:</label>
     <input type="text" name="name" value="<%= cat.getName() %>" required>

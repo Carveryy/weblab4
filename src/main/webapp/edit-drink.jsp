@@ -2,6 +2,13 @@
 <%@ page import="weblab4.data.Category" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%!
+    private static String esc(String s) {
+        if (s == null) return "";
+        return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                .replace("\"", "&quot;").replace("'", "&#39;");
+    }
+%>
 <%
     Drink drink = (Drink) request.getAttribute("drinkToEdit");
     List<Category> categories = (List<Category>) request.getAttribute("categories");
@@ -20,24 +27,24 @@
     </style>
 </head>
 <body>
-<h2>Редагувати напій: <%= drink.getName() %></h2>
+<h2>Редагувати напій: <%= esc(drink.getName()) %></h2>
 
-<form action="drinks?action=update" method="post">
+<form action="drinks?action=update" method="post" onsubmit="return confirm('Зберегти зміни?');">
     <input type="hidden" name="id" value="<%= drink.getId() %>">
 
     <div>
         <label>Назва:</label>
-        <input type="text" name="name" value="<%= drink.getName() %>" required>
+        <input type="text" name="name" value="<%= esc(drink.getName()) %>" required>
     </div>
     <div>
         <label>Категорія:</label>
         <select name="categoryId">
-            <option value="">-- Оберіть категорію --</option>
+            <option value="">Оберіть категорію</option>
             <% if (categories != null) {
                 for (Category cat : categories) {
                     boolean isSelected = (drink.getCategory() != null && drink.getCategory().getId().equals(cat.getId()));
             %>
-            <option value="<%= cat.getId() %>" <%= isSelected ? "selected" : "" %>><%= cat.getName() %></option>
+            <option value="<%= cat.getId() %>" <%= isSelected ? "selected" : "" %>><%= esc(cat.getName()) %></option>
             <%  }
             } %>
         </select>

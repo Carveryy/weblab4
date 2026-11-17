@@ -5,7 +5,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-// Видалили імпорт DrinkDao, додали CategoryDao
 import weblab4.dao.CategoryDao;
 import weblab4.data.Category;
 
@@ -13,12 +12,10 @@ import java.io.IOException;
 
 @WebServlet("/categories")
 public class CategoryServlet extends HttpServlet {
-    // Змінили тип змінної
     private CategoryDao categoryDao;
 
     @Override
     public void init() {
-        // Ініціалізуємо новий DAO
         categoryDao = new CategoryDao();
     }
 
@@ -27,7 +24,6 @@ public class CategoryServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action == null) {
-            // Використовуємо categoryDao
             request.setAttribute("categories", categoryDao.getAllCategories());
             request.getRequestDispatcher("/categories.jsp").forward(request, response);
         } else if ("edit".equals(action)) {

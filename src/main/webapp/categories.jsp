@@ -47,7 +47,8 @@
 
 <hr>
 <h3>Додати нову категорію</h3>
-<form action="categories?action=add" method="post">
+<form action="categories?action=add" method="post"
+      onsubmit="return confirm('Додати нову категорію?');">
     <label>Назва категорії:</label>
     <input type="text" name="name" required>
     <button type="submit">Додати</button>
